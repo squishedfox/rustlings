@@ -9,9 +9,14 @@ struct PositiveNonzeroInteger(u64);
 
 impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<Self, CreationError> {
-        // TODO: This function shouldn't always return an `Ok`.
-        // Read the tests below to clarify what should be returned.
-        Ok(Self(value as u64))
+        match value {
+            // TODO: This function shouldn't always return an `Ok`.
+            // Read the tests below to clarify what should be returned.
+            0 => Err(CreationError::Zero),
+            number if number < 0 => Err(CreationError::Negative),
+            number => Ok(Self(number as u64)),
+        } 
+        
     }
 }
 
